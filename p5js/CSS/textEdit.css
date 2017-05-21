@@ -1,0 +1,57 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
+	margin:0px;
+	padding:0px;
+}
+@font-face {
+    font-family: textEdit;
+    src: url(../FONT/SourceCodePro-Regular.ttf);
+}
+
+body {
+    margin: 1em;
+    background: #FFF;
+    font-family: textEdit, monospace;
+    color: #000000;
+}
+
+canvas {
+    box-sizing:border-box;
+    background: #ad3a3a;
+    padding: 0px;
+    margin: 0px;
+    display:block;
+}
+
+input {
+    font-family: textEdit;
+}
+
+table, th, td {
+    box-sizing: border-box;
+    border: 1px solid #FFF;
+    border-collapse: collapse;
+}
+
+table {
+    table-layout:fixed;
+    margin: auto;
+
+}
+  
+td {
+    height: 16px;
+}
+
+.toolbar{
+    margin: 5px 0px;
+    padding: 1px;
+    background: #e5d7dd;
+}
+
+#canvasContainer {
+    box-sizing: content-box;
+    width: 68px;
+    height: 68px;
+    padding: 4px 4px;
+    background: #c62b23;
+}
