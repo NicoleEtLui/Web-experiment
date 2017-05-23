@@ -38,16 +38,12 @@ var p5Instance = function (p) {
     
 };
 
-//does'nt seem to work, don't know why
-/*function draw(id){
-};*/
-
 $(function () {
     
     var widthCellNumber, heightCellNumber, HTMLtableCanvas, isDrawing, ink;
     
-    widthCellNumber = 4;
-    heightCellNumber = 4;
+    widthCellNumber = $("#canvasWidth").val();
+    heightCellNumber = $("#canvasHeight").val();
      
     HTMLtableCanvas = drawHTMLtableCanvas(widthCellNumber, heightCellNumber);
     
@@ -82,5 +78,5 @@ $(function () {
         ctxt.clearRect(0, 0, 16, 16);
         ctxt.fillText(ink, 5, 12);
     });
-
+    
 });
