@@ -60,6 +60,8 @@ $(function () {
         ink = $('#ink').val();
     }).mouseup(function () {
         isDrawing = false;
+    }).keydown(function(event){
+        $('#ink').val(event.key);
     });
         
     $("td canvas").mouseover(function () {
@@ -69,6 +71,11 @@ $(function () {
            ctxt.clearRect(0, 0, 16, 16);
            ctxt.fillText(ink, 5, 12);
        } 
+    }).mousedown(function () {
+        ctxt = this.getContext("2d");
+        ctxt.font = "20px";
+        ctxt.clearRect(0, 0, 16, 16);
+        ctxt.fillText(ink, 5, 12);
     }).click(function () {
         ctxt = this.getContext("2d");
         ctxt.font = "20px";
