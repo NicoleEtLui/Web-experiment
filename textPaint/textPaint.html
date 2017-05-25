@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Drawing text editor</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <!--<script type="text/javascript" src="http://193.190.65.94/All/jQui/jquery-ui.1.12.1.min.js"></script>-->
+    <script src="./libs/p5.min.js"></script>
+    <script src="./libs/p5.dom.min.js"></script>
+    <!--<script src="./libs/p5.sound.min.js"></script>-->
+    <script src="./JS/textPaint.js"></script>
+    <link rel="stylesheet" type=text/css href="./CSS/textPaint.css">
+  </head>
+  <body>
+      <div id="toolbar1" class=toolbar>
+          <div id="tools">
+              Ink:
+          <input type=text maxlength=1 size=1 id="ink" value="/">
+              Size: 
+          <input id="canvasWidth" type=number min=1 max=50 value=10 size=1>
+          <button type="button">link</button>
+          <input id="canvasHeight" type=number min=1 max=25 value=10 size=1>
+          </div>
+      </div>
+      <div id="canvasContainer">
+          <table id="canvasTable">
+          </table>
+      </div>
+      <div id="toolbar2" class=toolbar>
+          <input type=button value="save as .txt">
+      </div>
+  </body>
+</html>

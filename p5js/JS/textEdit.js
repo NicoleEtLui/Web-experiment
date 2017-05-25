@@ -26,7 +26,7 @@ var p5Instance = function (p) {
 
     var canvas;
     
-    p.setup = function (canvasId) {
+    p.setup = function () {
         canvas = p.createCanvas(16, 16);
         //canvas.parent('canvasContainer');
         //canvas.id(canvasId);
