@@ -1,4 +1,4 @@
-var canvasHeight, canvasWidth, drawingTable, isDrawing; 
+var canvasHeight, canvasWidth, drawingTable, isDrawing, gridIsVisible; 
 
 var p5Instance = function (p) {
     var canvas, symbol, fontRegular;
@@ -13,16 +13,24 @@ var p5Instance = function (p) {
         p.textSize(16);
         for (var i = 0, k = 0; i < canvasWidth; i++){
             for (var j = 0; j < canvasHeight; j++) {
-                //console.log(drawingTable[i][j]);
                 symbol = drawingTable[i][j];
                 p.text(symbol, 3 + (i * 16), 15 + (j * 16)); 
             }
         }
     };
     
-    /* p.preload = function () {
-        fontRegular = p.loadFont("FONT/SourceCodePro-Regular.otf");
-    }*/
+    function drawGrid() {
+        if (gridIsVisible){
+            p.stroke(255);
+            for(var x = 1; x < canvasWidth; x++){
+                p.line( x * 16, 0, x * 16,canvasHeight * 16 );
+            };
+            for(var y = 1; y < canvasHeight; y++){
+                p.line( 0, y * 16, canvasWidth * 16 , y * 16 );
+            };
+        };
+    };
+    
     p.setup = function () {
         p.frameRate(30);
         canvas = p.createCanvas(canvasHeight * 16, canvasWidth * 16);
@@ -34,11 +42,7 @@ var p5Instance = function (p) {
     p.draw = function () {
         p.background(0, 0, 0);
         drawCanvas();
-        
-        p.stroke(255);
-        p.line(0, 16, 32, 16);
-        p.line(16, 0, 16, 32);
-        
+        drawGrid();
     };
 
 };
@@ -59,6 +63,7 @@ function initCanvas() {
         drawingTable.push(line);
     }
     isDrawing = false;
+    gridIsVisible = false;
 };
 
 function drawSymbol(cX, cY) {
@@ -73,10 +78,8 @@ $(function() {
         $('#ink').val(event.key);
     }).mousedown(function () {
         isDrawing = true;
-        console.log('isDrawing');
     }).mouseup(function () {
         isDrawing = false;
-        console.log('NotDrawing');
     });
     
     $('#drawingCanvas').click(function (e) {
@@ -100,5 +103,13 @@ $(function() {
 
             drawSymbol(cellX, cellY);
         });*/
+    
+    $("#gridButton").on("click", function () {
+       if (gridIsVisible) {
+           gridIsVisible = false;
+       } else {
+           gridIsVisible = true;
+       }
+    });
     
 });
