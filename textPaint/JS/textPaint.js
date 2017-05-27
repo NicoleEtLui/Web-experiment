@@ -1,4 +1,4 @@
-var canvasHeight, canvasWidth, drawingTable; 
+var canvasHeight, canvasWidth, drawingTable, isDrawing; 
 
 var p5Instance = function (p) {
     var canvas, symbol, fontRegular;
@@ -24,7 +24,7 @@ var p5Instance = function (p) {
         fontRegular = p.loadFont("FONT/SourceCodePro-Regular.otf");
     }*/
     p.setup = function () {
-        p.frameRate(10);
+        p.frameRate(30);
         canvas = p.createCanvas(canvasHeight * 16, canvasWidth * 16);
         canvas.parent('canvasContainer');
         canvas.id('drawingCanvas');
@@ -45,28 +45,38 @@ var p5Instance = function (p) {
 
 function initCanvas() {
     $('#ink').val('/');
-    $('#canvasHeight').val(2);
-    $('#canvasWidth').val(2); 
+    $('#canvasHeight').val(20);
+    $('#canvasWidth').val(20); 
     canvasHeight = $('#canvasHeight').val();
     canvasWidth = $('#canvasWidth').val();
-    drawingTable = [["0"," "],[" "," "]];
-    
+    drawingTable = [];
+    for (var x = 0; x < canvasHeight; x++) {
+        var line = []
+        for (var y = 0; y < canvasWidth; y++) {
+            line.push(" ");
+            //$('#canvasContainer').append("<div></div>");
+        }
+        drawingTable.push(line);
+    }
+    isDrawing = false;
 };
 
-/*function updateCanvas() {
-    ink = $('#ink').val(); 
-    canvasHeight = $('#canvasHeight').val();
-    canvasWidth = $('#canvasWidth').val();
-};*/
-
+function drawSymbol(cX, cY) {
+    drawingTable[cX][cY] = $('#ink').val();
+}
 $(function() {
     initCanvas();
-    
     
     myp5 = new p5(p5Instance);
     
     $(document).keydown(function(event){
         $('#ink').val(event.key);
+    }).mousedown(function () {
+        isDrawing = true;
+        console.log('isDrawing');
+    }).mouseup(function () {
+        isDrawing = false;
+        console.log('NotDrawing');
     });
     
     $('#drawingCanvas').click(function (e) {
@@ -76,8 +86,19 @@ $(function() {
         
         var cellX = ~~(relMouseX/16);
         var cellY = ~~(relMouseY/16);
-        drawingTable[cellX][cellY] = $('#ink').val();
-        
+
+        drawSymbol(cellX, cellY);
     });
+    /*$('#drawingCanvas').mousemove(function (e) {
+        console.log('coucou');
+            var offset = $(this).offset(); // permet de récupérer un objet contenant le décalage du canvas par rapport au document
+            var relMouseX = e.pageX - offset.left; // translation du (0,0) du document sur le coin supérieur gauche du canvas
+            var relMouseY = e.pageY - offset.top;
+            
+            var cellX = ~~(relMouseX/16);
+            var cellY = ~~(relMouseY/16);
+
+            drawSymbol(cellX, cellY);
+        });*/
     
 });
