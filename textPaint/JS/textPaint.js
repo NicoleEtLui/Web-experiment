@@ -1,22 +1,23 @@
-var canvasHeight, canvasWidth, drawingTable, isDrawing, gridIsVisible; 
+var canvasHeight, canvasWidth, drawingTable, isDrawing, gridIsVisible, isResizing; 
 
 var p5Instance = function (p) {
     var canvas, symbol, fontRegular;
     
     
-    str = "";
+    symbol= " ";
    
     
     function drawCanvas () {
-        p.fill(255, 255, 255);
-        p.stroke(255);
-        p.textSize(16);
-        for (var i = 0, k = 0; i < canvasWidth; i++){
-            for (var j = 0; j < canvasHeight; j++) {
-                symbol = drawingTable[i][j];
-                p.text(symbol, 3 + (i * 16), 15 + (j * 16)); 
+            //console.log("drawCanvas");
+            p.fill(255, 255, 255);
+            p.stroke(255);
+            p.textSize(16);
+            for (var i = 0, k = 0; i < canvasWidth; i++){
+                for (var j = 0; j < canvasHeight; j++) {
+                    //symbol = drawingTable[i][j];
+                    p.text(symbol, 3 + (i * 16), 15 + (j * 16)); 
+                }
             }
-        }
     };
     
     function drawGrid() {
@@ -47,12 +48,7 @@ var p5Instance = function (p) {
 
 };
 
-function initCanvas() {
-    $('#ink').val('/');
-    $('#canvasHeight').val(20);
-    $('#canvasWidth').val(20); 
-    canvasHeight = $('#canvasHeight').val();
-    canvasWidth = $('#canvasWidth').val();
+function createDrawingTable () {
     drawingTable = [];
     for (var x = 0; x < canvasHeight; x++) {
         var line = []
@@ -62,17 +58,33 @@ function initCanvas() {
         }
         drawingTable.push(line);
     }
-    isDrawing = false;
-    gridIsVisible = false;
 };
 
+function initCanvas() {
+    $('#ink').val('/');
+    $('#canvasHeight').val(1);
+    $('#canvasWidth').val(1); 
+    canvasHeight = $('#canvasHeight').val();
+    canvasWidth = $('#canvasWidth').val();
+    createDrawingTable();
+    isDrawing = false;
+    gridIsVisible = true;
+    isResizing = false;
+};
+
+function updateCanvas () {
+    canvasWidth = $("#canvasWidth").val();
+    canvasHeight = $("#canvasHeight").val();
+    createDrawingTable();
+    console.log(drawingTable);
+ };
 function drawSymbol(cX, cY) {
     drawingTable[cX][cY] = $('#ink').val();
 }
 $(function() {
     initCanvas();
     
-    myp5 = new p5(p5Instance);
+    var myp5 = new p5(p5Instance);
     
     $(document).keydown(function(event){
         $('#ink').val(event.key);
@@ -111,5 +123,16 @@ $(function() {
            gridIsVisible = true;
        }
     });
-    
+
+    $("#canvasWidth, #canvasHeight").on("change", function(){
+        console.log('coucou');
+        
+        canvasWidth = $("#canvasWidth").val();
+        canvasHeight = $("#canvasHeight").val();
+        
+        //don't know why really but need to resize the css style also if i want something to happen, 
+        //think it's because of p5js that create style width and height for the canvas.
+        $('#drawingCanvas').attr({width:canvasWidth * 16, height:canvasHeight * 16}).css({width:canvasWidth * 16,height:canvasHeight * 16});
+        
+    })
 });
