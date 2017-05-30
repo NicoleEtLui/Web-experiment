@@ -29,6 +29,8 @@ var p5Instance = function (p) {
             for(var y = 1; y < canvasHeight; y++){
                 p.line( 0, y * 16, canvasWidth * 16 , y * 16 );
             };
+        } else {
+            p.stroke(0);
         };
     };
     
@@ -62,8 +64,8 @@ function createDrawingTable () {
 
 function initCanvas() {
     $('#ink').val('/');
-    $('#canvasHeight').val(1);
-    $('#canvasWidth').val(1); 
+    $('#canvasHeight').val(2);
+    $('#canvasWidth').val(2); 
     canvasHeight = $('#canvasHeight').val();
     canvasWidth = $('#canvasWidth').val();
     createDrawingTable();
@@ -122,6 +124,7 @@ $(function() {
        } else {
            gridIsVisible = true;
        }
+        console.log(gridIsVisible);
     });
 
     $("#canvasWidth, #canvasHeight").on("change", function(){
